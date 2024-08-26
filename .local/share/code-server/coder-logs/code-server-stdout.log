@@ -1,0 +1,20 @@
+[2024-08-23T09:15:17.537Z] info  code-server 4.18.0 d7a2b4936af1bfd80cb96f2567af68badc2325e3
+[2024-08-23T09:15:17.538Z] info  Using user-data-dir /home/jovyan/.local/share/code-server
+[2024-08-23T09:15:17.566Z] info  Using config file /home/jovyan/.config/code-server/config.yaml
+[2024-08-23T09:15:17.566Z] info  HTTP server listening on http://127.0.0.1:54613/
+[2024-08-23T09:15:17.566Z] info    - Authentication is disabled
+[2024-08-23T09:15:17.566Z] info    - Not serving HTTPS
+[2024-08-23T09:15:17.566Z] info  Session server listening on /home/jovyan/.local/share/code-server/code-server-ipc.sock
+[09:15:17] 
+
+
+
+
+[09:15:17] Extension host agent started.
+[09:15:17] Started initializing default profile extensions in extensions installation folder. file:///home/jovyan/.local/share/code-server/extensions
+[09:15:17] Completed initializing default profile extensions in extensions installation folder. file:///home/jovyan/.local/share/code-server/extensions
+[09:15:21] [127.0.0.1][8d97d984][ManagementConnection] New connection established.
+[09:15:23] [127.0.0.1][7ab719ec][ExtensionHostConnection] New connection established.
+[09:15:23] [127.0.0.1][7ab719ec][ExtensionHostConnection] <325> Launched Extension Host Process.
+[09:15:29] [127.0.0.1][8d97d984][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[09:15:29] [127.0.0.1][7ab719ec][ExtensionHostConnection] <325> Extension Host Process exited with code: 0, signal: null.
