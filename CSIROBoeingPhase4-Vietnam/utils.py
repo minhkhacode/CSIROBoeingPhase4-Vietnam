@@ -16,7 +16,7 @@ def eliminate_noise(qr, og_square):
             if(not np.isnan(test_sq[x][y])):
                 square += 100
 
-    if(square/og_square < 0.50):
+    if(square/og_square < 0.75):
          return qr.where(False, np.nan)
     return qr
 
@@ -53,13 +53,11 @@ def process(HT_MAP, polygon, label, CODE_MAP, ouput_image, squares):
                     qr.values[:, :, :] = np.nan
                 #calculate square and eliminte small pieces 
                 new_qr = eliminate_noise(qr, squares[i])
-                print(squares[i])
-
-
+                # print(squares[i])
                 array_list.append(qr)
                 deleted_array.append(new_qr)
             except Exception as e:
-               pass
+               print(e)
         result.update({key: array_list})
         sub_result.update({key: deleted_array})
     return result, sub_result
