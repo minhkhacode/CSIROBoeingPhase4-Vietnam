@@ -1,5 +1,9 @@
 import geopandas as gpd
 import numpy as np
+import os
+from rioxarray.merge import merge_arrays
+import matplotlib.pyplot as plt
+
 
 
 def load_data_geo(path: str):
@@ -8,7 +12,7 @@ def load_data_geo(path: str):
 
 
 #########################################################
-def eliminate_noise(qr, og_square):
+def eliminate_noise_with_min_square(qr, min_square):
     test_sq = np.squeeze(qr)
     square =0
     for x in range(test_sq.shape[0]):
@@ -16,7 +20,20 @@ def eliminate_noise(qr, og_square):
             if(not np.isnan(test_sq[x][y])):
                 square += 100
 
-    if(square/og_square < 0.75):
+    if(square < min_square):
+         return qr.where(False, np.nan)
+    return qr
+
+
+def eliminate_noise_with_min_percent(qr, og_square, min_percent):
+    test_sq = np.squeeze(qr)
+    square =0
+    for x in range(test_sq.shape[0]):
+        for y in range(test_sq.shape[1]):
+            if(not np.isnan(test_sq[x][y])):
+                square += 100
+
+    if(square/og_square < min_percent):
          return qr.where(False, np.nan)
     return qr
 
@@ -52,7 +69,8 @@ def process(HT_MAP, polygon, label, CODE_MAP, ouput_image, squares):
                 else:
                     qr.values[:, :, :] = np.nan
                 #calculate square and eliminte small pieces 
-                new_qr = eliminate_noise(qr, squares[i])
+                new_qr = eliminate_noise_with_min_percent(qr, squares[i], 0.5)
+                # new_qr = eliminate_noise_with_min_square(qr, 10000)
                 # print(squares[i])
                 array_list.append(qr)
                 deleted_array.append(new_qr)
@@ -61,3 +79,19 @@ def process(HT_MAP, polygon, label, CODE_MAP, ouput_image, squares):
         result.update({key: array_list})
         sub_result.update({key: deleted_array})
     return result, sub_result
+
+############### save image to folder
+def save_file(save_path , result, cmap, labels, HT_MAP, extension_name="", show=True):
+    if not os.path.exists(save_path):
+        os.mkdir(save_path)
+    for k, v in result.items():
+        rs = merge_arrays(v, nodata = np.nan)
+        rs.rio.to_raster(f"{save_path}/{k}-{extension_name}.tif")
+        if(show):
+            img = rs.plot(cmap=cmap, add_colorbar=False)
+            cbar = plt.colorbar(img)
+            cbar.ax.set_yticklabels(labels)
+            plt.title(f'{HT_MAP[k]["name"]}')
+            plt.axis('off')
+            plt.show()  
+
