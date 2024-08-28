@@ -1,0 +1,13 @@
+{
+  "base_url": "/user/minhkha834/",
+  "hostname": "0.0.0.0",
+  "password": false,
+  "pid": 7,
+  "port": 8888,
+  "root_dir": "/home/jovyan",
+  "secure": false,
+  "sock": "",
+  "token": "ed82dca77df74c2680654d7e28bcb61a",
+  "url": "http://jupyter-minhkha834:8888/user/minhkha834/",
+  "version": "2.8.0"
+}
